@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  quatity: 1
+  unit_price_ht: 1
+  total_price_ht: 1
+  total_price_ttc: 1
+  tva: 1.5
+  img: MyString
+
+two:
+  name: MyString
+  quatity: 1
+  unit_price_ht: 1
+  total_price_ht: 1
+  total_price_ttc: 1
+  tva: 1.5
+  img: MyString
