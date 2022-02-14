@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
     create_table :orders do |t|
       t.float :total_ht
       t.float :total_ttc
-      t.string :status
+      t.string :status, default: "À faire"
       t.string :customer
 
       t.timestamps

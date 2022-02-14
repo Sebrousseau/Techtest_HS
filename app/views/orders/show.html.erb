@@ -1,0 +1,7 @@
+<h1 class='text-center'>Commande numéro <%= @order.id %></h1>
+<hr>
+<ul>
+<% @order.products.each do |product| %>
+<%= product.name %>
+<% end %>
+</ul>

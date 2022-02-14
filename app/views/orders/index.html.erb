@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 class='text-center'>Les commandes</h1>
+  <hr>
+  <ul>
+  <% @orders.each do |order| %>
+  <li><%= link_to order.customer, order_path(order) %> - Price - <%= link_to 'Modfier ma commande', edit_order_path(order) %> Statut: <%= order.status %></li>
+  <% end %>
+  </ul>
+</div>
