@@ -1,21 +1,18 @@
+
 <div class="container">
   <h2 class="text-center">Modifier ma commande<h2>
 <hr>
-
-  <%= simple_form_for(@order) do |f| %>
-     <div class="form-inputs">
-      <%= f.input :customer,
-                  label: "Nom du client",
-                  input_html: { autocomplete: "customer" }%>
-    </div>
-    <hr>
-    <div class="cards-product-container">
+  <form method="post" action="/orders">
+  <label for="customer">Customer name</label>
+  <input type="text" name="customer" id="customer" value="<%=@order.customer%>">
+  <hr>
+  <div class="cards-product-container">
       <% @products.each do |product| %>
         <%= render("shared/product_card", product: product ) %>
+
       <% end %>
-    </div>
-    <div class="form-actions">
-      <%= f.button :submit, "Modifier", class: "btn btn-primary" %>
-    </div>
-  <% end %>
+  </div>
+  <hr>
+  <input type="submit" name="Buy">
+</form>
 </div>

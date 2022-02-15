@@ -3,7 +3,11 @@
   <hr>
   <ul>
   <% @orders.each do |order| %>
-  <li><%= link_to order.customer, order_path(order) %> - Price - <%= link_to 'Modfier ma commande', edit_order_path(order) %> Statut: <%= order.status %></li>
+  <li><%= link_to order.customer, order_path(order) %> - <%= order.total_ht %>Euros (HT) - <%= link_to 'Modfier ma commande - ', edit_order_path(order) unless order.status == 'Terminée' %> Statut: <strong><%= order.status %></strong></li>
   <% end %>
   </ul>
+  <hr>
+  <%= link_to 'Nouvelle commande', new_order_path, class:'btn btn-primary' %>
+  <hr>
+  <%= link_to 'Voir les factures', invoices_path, class:'btn btn-primary' %>
 </div>

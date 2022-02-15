@@ -1,7 +1,31 @@
-<h1 class='text-center'>Commande numéro <%= @order.id %></h1>
-<hr>
-<ul>
-<% @order.products.each do |product| %>
-<%= product.name %>
-<% end %>
-</ul>
+<div class="container">
+  <h1 class='text-center'>Commande numéro <%= @order.id %></h1>
+  <hr>
+  <h3>Client: <%= @order.customer %></h3>
+  <hr>
+  <ul>
+  <% @order.order_products.each do |op| %>
+  <li><%= "#{op.quantity} #{op.product.name.pluralize} - #{op.total_price_ht} Euros (HT) - TVA= #{op.product.tva * 100}%"%></li>
+  <% end %>
+  </ul>
+  <hr>
+  <p><%= "Sous TOTAL = #{@order.total_ht} Euros (HT) " %></p>
+  <p><%= "TOTAL = #{@order.total_ttc} Euros (TTC) " %></p>
+  <hr>
+  <h2 class='text-center' style= "color: red;"><%= "Statut: #{@order.status}" if @order.status == "À faire"%></h2>
+  <h2 class='text-center' style= "color: orange;"> <%= "Statut: #{@order.status}" if @order.status == "En cours"%></h2>
+  <h2 class='text-center' style= "color: green;"><%= "Statut: #{@order.status}" if @order.status == "Terminée"%></h2>
+  <hr>
+  <h3>Changer etat de commande</h3>
+  <%= simple_form_for(@order) do |f| %>
+    <div class="form-inputs">
+      <%= f.input :status,
+                    label: "Etat de la commande",
+                    collection: ['À faire', 'En cours', 'Terminée'],
+                    input_html: { autocomplete: "status" }%>
+      </div>
+    <div class="form-actions">
+        <%= f.button :submit, "Modifier", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

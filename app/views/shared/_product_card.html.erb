@@ -4,4 +4,8 @@
     <h2><%= product.name %></h2>
     <p><strong><%= "#{product.unit_price_ht} Euro".pluralize %></strong></p>
   </div>
+    <div class="form-inputs">
+      <input type="number" id=<%=product.id%> name=product[<%=product.id%>]
+      min="1" max="100" value=<%= OrderProduct.find_by(order_id: @order.id, product_id: product.id).nil? ? nil : OrderProduct.find_by(order_id: @order.id, product_id: product.id).quantity %>>
+    </div>
 </div>

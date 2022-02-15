@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_122842) do
     t.float "total_ttc"
     t.string "status", default: "À faire"
     t.string "customer"
+    t.boolean "apply_tva", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
