@@ -6,12 +6,14 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @order_product = OrderProduct.new
     @products = Product.all
   end
 
   def create
     order = order_params
     @order = Order.new(order)
+
     if @order.save
       redirect_to orders_path
     else
@@ -41,6 +43,8 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:customer, :total_ht, :total_ttc, :status)
   end
+
+
 
   def find_order
     @order = Order.find(params[:id])

@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_122842) do
   create_table "order_products", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
+    t.float "total_price_ht"
+    t.float "total_price_ttc"
+    t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_order_products_on_order_id"
@@ -43,10 +46,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_122842) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "quantity"
     t.float "unit_price_ht"
-    t.float "total_price_ht"
-    t.float "total_price_ttc"
     t.float "tva"
     t.string "img"
     t.datetime "created_at", precision: 6, null: false
