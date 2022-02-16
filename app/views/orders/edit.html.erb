@@ -4,7 +4,6 @@
 <hr>
   <form method="post" action=<%="/orders/#{@order.id}"%>>
   <input type="hidden" name="_method" value="PATCH">
-  <input type="hidden" name="order" value=<%= {"status"=>"À faire"}%>>
 
   <label for="customer">Customer name</label>
   <input type="text" name="customer" id="customer" value="<%=@order.customer%>">
@@ -14,6 +13,11 @@
         <%= render("shared/product_card", product: product ) %>
 
       <% end %>
+  </div>
+  <hr>
+  <div>
+    <input type="checkbox" id="tva" name="apply_tva" value="true">
+    <label for="tva">Appliquer la TVA?</label>
   </div>
   <hr>
   <input type="submit" name="Buy" class='btn btn-primary'>

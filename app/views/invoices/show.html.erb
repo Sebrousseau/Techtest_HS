@@ -9,8 +9,9 @@
   <% end %>
   </ul>
   <hr>
-  <p><%= "Sous TOTAL = #{@invoice.total_ht} Euros (HT) " unless @invoice.apply_tva %></p>
+  <p><%= "Sous TOTAL = #{@invoice.total_ht} Euros (HT) " if @invoice.apply_tva %></p>
   <p><%= "TOTAL = #{@invoice.total_ttc} Euros (TTC) " if @invoice.apply_tva %></p>
+  <p><%= "TOTAL Hors Taxe = #{@invoice.total_ht} Euros (HT) " unless @invoice.apply_tva %></p>
   <hr>
   <h4 class='text-center'><%= "Réglé le #{@invoice.payment_date}" %></h4>
   <hr>

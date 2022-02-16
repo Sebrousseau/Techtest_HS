@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :orders, except: [ :destroy ]
   resources :order_products, only: [:new, :create, :destroy]
   resources :invoices, except: [ :destroy ]
+  patch 'orders/:id/update_status', to: 'orders#update_status', as: :update_status
 
 end
