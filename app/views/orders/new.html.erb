@@ -4,7 +4,7 @@
 <hr>
   <form method="post" action="/orders">
   <label for="customer">Customer name</label>
-  <input type="text" name="customer" id="customer">
+  <input type="text" name="customer" id="customer" required>
   <hr>
   <div class="cards-product-container">
       <% @products.each do |product| %>

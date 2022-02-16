@@ -1,16 +1,16 @@
 <div class="container">
   <h1 class='text-center'>Facture numéro <%= @invoice.id %></h1>
   <hr>
-  <h3>Client: <%= @invoice.order.customer %></h3>
+  <h3>Client: <%= @invoice.customer %></h3>
   <hr>
   <ul>
-  <% @invoice.order.order_products.each do |op| %>
+  <% @invoice.order_products.each do |op| %>
   <li><%= "#{op.quantity} #{op.product.name.pluralize} - #{op.total_price_ht} Euros (HT) - TVA= #{op.product.tva * 100}%"%></li>
   <% end %>
   </ul>
   <hr>
-  <p><%= "Sous TOTAL = #{@invoice.order.total_ht} Euros (HT) " %></p>
-  <p><%= "TOTAL = #{@invoice.order.total_ttc} Euros (TTC) " %></p>
+  <p><%= "Sous TOTAL = #{@invoice.total_ht} Euros (HT) " unless @invoice.apply_tva %></p>
+  <p><%= "TOTAL = #{@invoice.total_ttc} Euros (TTC) " if @invoice.apply_tva %></p>
   <hr>
   <h4 class='text-center'><%= "Réglé le #{@invoice.payment_date}" %></h4>
   <hr>

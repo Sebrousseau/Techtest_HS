@@ -3,7 +3,7 @@
   <hr>
   <ul>
   <% @invoices.each do |invoice| %>
-  <li><%= link_to invoice.order.customer, invoice_path(invoice) %> - <%= invoice.order.total_ht %>Euros (HT)</li>
+  <li><%= link_to invoice.customer, invoice_path(invoice) %> - <%= invoice.total_ht %>Euros (HT)</li>
   <% end %>
   </ul>
   <hr>

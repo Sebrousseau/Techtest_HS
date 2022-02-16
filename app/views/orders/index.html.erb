@@ -3,7 +3,7 @@
   <hr>
   <ul>
   <% @orders.each do |order| %>
-  <li><%= link_to order.customer, order_path(order) %> - <%= order.total_ht %>Euros (HT) - <%= link_to 'Modfier ma commande - ', edit_order_path(order) unless order.status == 'Terminée' %> Statut: <strong><%= order.status %></strong></li>
+  <li><%= link_to order.customer, order_path(order) %> - <%= order.apply_tva ? "#{order.total_ttc}Euros (TTC)" : "#{order.total_ht}Euros (HT)" %> - <%= link_to 'Modfier ma commande - ', edit_order_path(order) unless order.status == 'Terminée' %> Statut: <strong><%= order.status %></strong></li>
   <% end %>
   </ul>
   <hr>

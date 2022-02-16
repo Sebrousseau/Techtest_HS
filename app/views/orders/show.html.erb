@@ -9,23 +9,28 @@
   <% end %>
   </ul>
   <hr>
-  <p><%= "Sous TOTAL = #{@order.total_ht} Euros (HT) " %></p>
-  <p><%= "TOTAL = #{@order.total_ttc} Euros (TTC) " %></p>
+  <p><%= "Sous TOTAL = #{@order.total_ht} Euros (HT) " unless @order.apply_tva %></p>
+  <p><%= "TOTAL = #{@order.total_ttc} Euros (TTC) " if @order.apply_tva %></p>
   <hr>
   <h2 class='text-center' style= "color: red;"><%= "Statut: #{@order.status}" if @order.status == "À faire"%></h2>
   <h2 class='text-center' style= "color: orange;"> <%= "Statut: #{@order.status}" if @order.status == "En cours"%></h2>
   <h2 class='text-center' style= "color: green;"><%= "Statut: #{@order.status}" if @order.status == "Terminée"%></h2>
   <hr>
-  <h3>Changer etat de commande</h3>
-  <%= simple_form_for(@order) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :status,
-                    label: "Etat de la commande",
-                    collection: ['À faire', 'En cours', 'Terminée'],
-                    input_html: { autocomplete: "status" }%>
+  <% unless @order.status == 'Terminée' %>
+    <h3>Changer etat de commande</h3>
+    <%= simple_form_for(@order) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :status,
+                      label: "Etat de la commande",
+                      collection: ['À faire', 'En cours', 'Terminée'],
+                      input_html: { autocomplete: "status" }%>
+        </div>
+      <div class="form-actions">
+          <%= f.button :submit, "Modifier", class: "btn btn-primary" %>
       </div>
-    <div class="form-actions">
-        <%= f.button :submit, "Modifier", class: "btn btn-primary" %>
-    </div>
+    <% end %>
   <% end %>
+  <hr>
+  <%= link_to 'Retour aux commandes', orders_path, class: 'btn btn-primary' %>
+
 </div>

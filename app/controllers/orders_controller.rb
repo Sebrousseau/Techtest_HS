@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     params[:product].each do |product|
       create_order_products(@order, product)
     end
-    @order.apply_tva = true if params[:apply_tva] == 'true'
+    @order.apply_tva = params[:apply_tva] == 'true'
     @order.total_ht = calcul_total_ht(@order)
     @order.total_ttc = calcul_total_ttc(@order)
     if @order.save
@@ -31,13 +31,10 @@ class OrdersController < ApplicationController
   end
 
   def update
-    if @order.update(order_params)
-      if @order.status == 'Terminée'
-        Invoice.create(
-          order: @order,
-          payment_date: Time.now
-        )
-      end
+    raise
+    order = order_params
+    @order.payment_date = Time.now if order[:status] == 'Terminée'
+    if @order.update(order)
       redirect_to orders_path
     else
       render :new

@@ -2,7 +2,10 @@
 <div class="container">
   <h2 class="text-center">Modifier ma commande<h2>
 <hr>
-  <form method="post" action="/orders">
+  <form method="post" action=<%="/orders/#{@order.id}"%>>
+  <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="order" value=<%= {"status"=>"À faire"}%>>
+
   <label for="customer">Customer name</label>
   <input type="text" name="customer" id="customer" value="<%=@order.customer%>">
   <hr>
@@ -13,6 +16,6 @@
       <% end %>
   </div>
   <hr>
-  <input type="submit" name="Buy">
+  <input type="submit" name="Buy" class='btn btn-primary'>
 </form>
 </div>

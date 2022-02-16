@@ -6,6 +6,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :status, default: "À faire"
       t.string :customer
       t.boolean :apply_tva, default: false
+      t.date :payment_date
 
       t.timestamps
     end

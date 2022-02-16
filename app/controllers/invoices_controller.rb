@@ -1,9 +1,9 @@
 class InvoicesController < ApplicationController
   def index
-    @invoices = Invoice.all
+    @invoices = Order.where(status: "Terminée")
   end
 
   def show
-    @invoice = Invoice.find(params[:id])
+    @invoice = Order.find(params[:id])
   end
 end
