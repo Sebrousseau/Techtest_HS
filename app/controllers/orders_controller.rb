@@ -1,15 +1,19 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :find_order, only: [:show, :edit, :update, :update_status]
+
   def index
     @orders = Order.all
   end
+
   def new
     @order = Order.new
     @order_product = OrderProduct.new
     @products = Product.all
   end
+
   def create
+    return if params[:product].values.reject(&:blank?) == []
     @order = Order.create(customer: params[:customer])
     params[:product].each do |product|
       create_order_products(@order, product)
@@ -18,14 +22,17 @@ class OrdersController < ApplicationController
     @order.total_ht = calcul_total_ht(@order)
     @order.total_ttc = calcul_total_ttc(@order)
     if @order.save
-      redirect_to orders_path
+      redirect_to order_path(@order)
     else
+      byebug
       render :new
     end
   end
+
   def edit
     @products = Product.all
   end
+
   def update
     @order.update(order_params)
     products = params[:product]

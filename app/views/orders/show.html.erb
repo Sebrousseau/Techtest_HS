@@ -9,8 +9,10 @@
   <% end %>
   </ul>
   <hr>
-  <p><%= "Sous TOTAL = #{@order.total_ht} Euros (HT) " unless @order.apply_tva %></p>
+  <p><%= "Sous TOTAL = #{@order.total_ht} Euros (HT) " if @order.apply_tva %></p>
   <p><%= "TOTAL = #{@order.total_ttc} Euros (TTC) " if @order.apply_tva %></p>
+  <p><%= "TOTAL = #{@order.total_ht} Euros (HT) " unless @order.apply_tva %></p>
+
   <hr>
   <h2 class='text-center' style= "color: red;"><%= "Statut: #{@order.status}" if @order.status == "À faire"%></h2>
   <h2 class='text-center' style= "color: orange;"> <%= "Statut: #{@order.status}" if @order.status == "En cours"%></h2>
