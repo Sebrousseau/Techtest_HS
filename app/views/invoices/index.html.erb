@@ -3,7 +3,7 @@
   <hr>
   <ul>
   <% @invoices.each do |invoice| %>
-  <li><%= link_to invoice.customer, invoice_path(invoice) %> - <%= invoice.apply_tva ? "#{invoice.total_ttc}Euros (TTC)" : "#{invoice.total_ht}Euros (HT)" %></li>
+  <li><%= link_to invoice.customer, invoice_path(invoice) %> - <%= invoice.apply_tva ? "#{invoice.total_ttc}Euros (TTC)" : "#{invoice.total_ht}Euros (HT)" %> - Réglée le: <%= invoice.payment_date %></li>
   <% end %>
   </ul>
   <hr>

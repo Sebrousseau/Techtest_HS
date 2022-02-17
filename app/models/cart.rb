@@ -3,7 +3,5 @@ class Cart
     @token = token
   end
 
-  def order
-
-  end
+  def order; end
 end

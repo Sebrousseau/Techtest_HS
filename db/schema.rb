@@ -10,52 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_122842) do
-
-  create_table "invoices", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.float "total_ht"
-    t.float "total_ttc"
-    t.date "payment_date"
-    t.string "customer"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_invoices_on_order_id"
+ActiveRecord::Schema.define(version: 20_220_214_122_842) do
+  create_table 'invoices', force: :cascade do |t|
+    t.integer 'order_id', null: false
+    t.float 'total_ht'
+    t.float 'total_ttc'
+    t.date 'payment_date'
+    t.string 'customer'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['order_id'], name: 'index_invoices_on_order_id'
   end
 
-  create_table "order_products", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "product_id", null: false
-    t.float "total_price_ht"
-    t.float "total_price_ttc"
-    t.integer "quantity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_order_products_on_order_id"
-    t.index ["product_id"], name: "index_order_products_on_product_id"
+  create_table 'order_products', force: :cascade do |t|
+    t.integer 'order_id', null: false
+    t.integer 'product_id', null: false
+    t.float 'total_price_ht'
+    t.float 'total_price_ttc'
+    t.integer 'quantity'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['order_id'], name: 'index_order_products_on_order_id'
+    t.index ['product_id'], name: 'index_order_products_on_product_id'
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.float "total_ht"
-    t.float "total_ttc"
-    t.string "status", default: "À faire"
-    t.string "customer"
-    t.boolean "apply_tva", default: false
-    t.date "payment_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'orders', force: :cascade do |t|
+    t.float 'total_ht'
+    t.float 'total_ttc'
+    t.string 'status', default: 'À faire'
+    t.string 'customer'
+    t.boolean 'apply_tva', default: false
+    t.date 'payment_date'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.float "unit_price_ht"
-    t.float "tva"
-    t.string "img"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'products', force: :cascade do |t|
+    t.string 'name'
+    t.float 'unit_price_ht'
+    t.float 'tva'
+    t.string 'img'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  add_foreign_key "invoices", "orders"
-  add_foreign_key "order_products", "orders"
-  add_foreign_key "order_products", "products"
+  add_foreign_key 'invoices', 'orders'
+  add_foreign_key 'order_products', 'orders'
+  add_foreign_key 'order_products', 'products'
 end

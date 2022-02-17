@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :find_order, only: [:show, :edit, :update, :update_status]
+  before_action :find_order, only: %i[show edit update update_status]
 
   def index
-    @orders = Order.all
+    @orders = Order.all.sort_by { |order| I18n.transliterate(order.status) }
   end
 
   def new
@@ -14,19 +14,13 @@ class OrdersController < ApplicationController
 
   def create
     return if params[:product].values.reject(&:blank?) == []
+
     @order = Order.create(customer: params[:customer])
     params[:product].each do |product|
       create_order_products(@order, product)
     end
-    @order.apply_tva = params[:apply_tva] == 'true'
-    @order.total_ht = calcul_total_ht(@order)
-    @order.total_ttc = calcul_total_ttc(@order)
-    if @order.save
-      redirect_to order_path(@order)
-    else
-      byebug
-      render :new
-    end
+    set_params_order(@order)
+    render_or_redirect(@order)
   end
 
   def edit
@@ -34,7 +28,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.update(order_params)
+    return if params[:product].values.reject(&:blank?) == []
     products = params[:product]
     products.each do |product|
       order_product = OrderProduct.where('order_id=? AND product_id=?', @order.id, product[0])
@@ -48,18 +42,12 @@ class OrdersController < ApplicationController
         )
       end
     end
-    @order.apply_tva = params[:apply_tva] == 'true'
-    @order.total_ht = calcul_total_ht(@order)
-    @order.total_ttc = calcul_total_ttc(@order)
-    if @order.save
-      redirect_to orders_path
-    else
-      render :new
-    end
+    set_params_order(@order)
+    render_or_redirect(@order)
   end
 
   def update_status
-    order = status_order_params
+    order = order_params
     @order.payment_date = Time.now if order[:status] == 'Terminée'
     if @order.update(order)
       redirect_to orders_path
@@ -67,16 +55,12 @@ class OrdersController < ApplicationController
       render :new
     end
   end
-  def show
-  end
+
+  def show; end
 
   private
 
   def order_params
-    params.permit(:customer, :total_ht, :total_ttc, :status, :apply_tva)
-  end
-
-  def status_order_params
     params.require(:order).permit(:customer, :total_ht, :total_ttc, :status, :apply_tva)
   end
 
@@ -110,5 +94,15 @@ class OrdersController < ApplicationController
     sum = 0
     order.order_products.each { |op| sum += op.total_price_ttc }
     sum.round(2)
+  end
+
+  def set_params_order(order)
+    order.apply_tva = params[:apply_tva] == 'true'
+    order.total_ht = calcul_total_ht(order)
+    order.total_ttc = calcul_total_ttc(order)
+  end
+
+  def render_or_redirect(order)
+    order.save ? (redirect_to order_path(order)) : (render :new)
   end
 end

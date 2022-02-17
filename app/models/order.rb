@@ -4,6 +4,4 @@ class Order < ApplicationRecord
   has_many :products, through: :order_products
   # validates :total_ht, presence: true
   validates :customer, presence: true
-
-
 end

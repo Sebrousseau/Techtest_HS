@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :order do
-    customer "Jacky"
+    sequence(:customer) { |i| "Jacky #{i}" }
 
     factory :order_without_customer do
       customer nil

@@ -3,21 +3,23 @@
   <h2 class="text-center">Nouvelle commande<h2>
 <hr>
   <form method="post" action="/orders">
-  <label for="customer">Customer name</label>
-  <input type="text" name="customer" id="customer" required>
-  <hr>
-  <div class="cards-product-container">
-      <% @products.each do |product| %>
-        <%= render("shared/product_card", product: product ) %>
+    <label for="customer">Customer name</label>
+    <input type="text" name="customer" id="customer" required>
+    <hr>
+    <div class="cards-product-container">
+        <% @products.each do |product| %>
+          <%= render("shared/product_card", product: product ) %>
 
-      <% end %>
-  </div>
-<hr>
-<div>
-  <input type="checkbox" id="tva" name="apply_tva" value="true">
-  <label for="tva">Appliquer la TVA?</label>
-</div>
+        <% end %>
+    </div>
   <hr>
-  <input type="submit" name="Buy">
-</form>
+    <div>
+      <input type="checkbox" id="tva" name="apply_tva" value="true">
+      <label for="tva">Appliquer la TVA?</label>
+    </div>
+    <hr>
+    <input type="submit" name="Buy" value='Passer la commande' class="btn btn-primary">
+  </form>
+  <%= link_to 'Retour aux commandes', orders_path, class: "btn btn-primary"%>
+
 </div>
